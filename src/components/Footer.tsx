@@ -1,12 +1,13 @@
 import React from 'react';
 import { Palette, Mail, Phone, MapPin, Linkedin, Twitter, Instagram, Facebook } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
   const socialLinks = [
     { icon: Linkedin, href: '#', label: 'LinkedIn' },
     { icon: Twitter, href: '#', label: 'Twitter' },
     { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Facebook, href: '#', label: 'Facebook' }
+    { icon: Facebook, href: 'https://www.facebook.com/minimind.team', label: 'Facebook' }
   ];
 
   const quickLinks = [
@@ -40,11 +41,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <Palette className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold">Minimind</span>
+            <div className="flex items-center space-x-2">
+              <img src={logo} alt="Logo" className="h-10 w-auto" />
+              <span className="text-2xl font-bold text-white">Minimind</span>
             </div>
             <p className="text-gray-400 mb-6">
               Empowering businesses through creative excellence. We create stunning designs 
