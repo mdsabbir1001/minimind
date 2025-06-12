@@ -6,7 +6,7 @@ const Portfolio = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalProject, setModalProject] = useState<any>(null);
 
-  const categories = ['All', 'Branding', 'Web Design', 'Print Design', 'Marketing', 'Food & Beverage'];
+  const categories = ['All', 'Branding', 'Web Design', 'Print Design', 'Marketing', 'Food & Beverage', 'Thumbnails'];
 
   const projects = [
     {
@@ -57,7 +57,7 @@ const Portfolio = () => {
         'https://i.ibb.co/v45Tm8fF/6.png',
         'https://i.ibb.co/hnbsk2g/sa.png',
       ],
-      description: 'Dynamic marketing campaign for a fitness mobile application.',
+      description: 'Creative and professional post designs that boost your audience engagement, expand your online reach, and make your brand stand out.',
       link: 'https://facebook.com/minimind.team'
     },
     {
@@ -81,8 +81,7 @@ const Portfolio = () => {
       ],
       description: 'Clean and modern portfolio website for a creative professional.',
       link: 'https://facebook.com/minimind.team'
-    }
-    ,
+    },
     {
       id: 7,
       title: 'Social Media Ads Campaign',
@@ -97,6 +96,26 @@ const Portfolio = () => {
         'https://i.ibb.co/4LHQPQt/Food-manu-1.jpg',
       ],
       description: 'Mouth-watering visuals for your social media platforms, designed to capture attention and turn cravings into customers.',
+      link: 'https://facebook.com/minimind.team/'
+    },
+    {
+      id: 8,
+      title: 'Youtube Thumbnails',
+      category: 'Thumbnails',
+      image: 'https://i.ibb.co/JjGXq8sh/image.png',
+      images: [
+        'https://i.ibb.co/LXqp25Z9/image.png',
+        'https://i.ibb.co/rRMN9Ljw/image.png',
+        'https://i.ibb.co/JwvFt3h5/hfhg.jpg',
+        'https://i.ibb.co/xtD41Tt5/image.png',
+        'https://i.ibb.co/4kdBvzV/image.png',
+        'https://i.ibb.co/DxSzFT2/image.png',
+        'https://i.ibb.co/V0BzBgSJ/image.png',
+        'https://i.ibb.co/KjQ27Bnv/tgjjgj.jpg',
+        'https://i.ibb.co/BVctv2rD/thumbnil-2-2.png',
+        'https://i.ibb.co/jPH2ZDCG/496943370-643749558620057-1703896485107095177-n.jpg',
+      ],
+      description: 'Professional, custom thumbnails designed to make your videos stand out, attract your target audience, and grow your channel faster.',
       link: 'https://facebook.com/minimind.team/'
     }
   ];
@@ -141,7 +160,11 @@ const Portfolio = () => {
                     key={idx}
                     src={img}
                     alt={modalProject.title + ' ' + (idx + 1)}
-                    className="w-full aspect-square object-cover rounded-lg border mx-auto"
+                    className={
+                      modalProject.id === 8
+                        ? "w-full aspect-[16/9] object-cover rounded-lg border mx-auto"
+                        : "w-full aspect-square object-cover rounded-lg border mx-auto"
+                    }
                     onContextMenu={e => e.preventDefault()}
                     draggable={false}
                   />
