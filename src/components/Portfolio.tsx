@@ -96,7 +96,7 @@ const Portfolio = () => {
         'https://i.ibb.co/0yyFqHk4/Manipulatoin2.jpg',
         'https://i.ibb.co/4LHQPQt/Food-manu-1.jpg',
       ],
-      description: 'Clean and modern portfolio website for a creative professional.',
+      description: 'Mouth-watering visuals for your social media platforms, designed to capture attention and turn cravings into customers.',
       link: 'https://facebook.com/minimind.team/'
     }
   ];
