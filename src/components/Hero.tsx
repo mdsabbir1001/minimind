@@ -1,5 +1,7 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+// Import your image
+import herobg from '../assets/hero-bg.jpg';
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -17,27 +19,35 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="pt-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <section
+      id="home"
+      className="pt-16 min-h-[40vh] sm:min-h-screen flex items-center relative"
+      style={{
+        backgroundImage: `url(${herobg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Overlay for light effect */}
+      <div className="absolute inset-0 bg-white/80 pointer-events-none"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="flex items-center space-x-2 mb-6">
               <Sparkles className="w-6 h-6 text-blue-600" />
               <span className="text-blue-600 font-semibold">Creative Design Solutions</span>
             </div>
-            
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Elevate Your Brand with
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 {' '}Minimind
               </span>
             </h1>
-            
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               We specialize in creating stunning graphic designs for new businesses, supporting marketing agencies, 
               and generating innovative ideas that drive business expansion.
             </p>
-            
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={scrollToContact}
@@ -46,7 +56,6 @@ const Hero = () => {
                 <span>Start Your Project</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
               </button>
-              
               <button
                 onClick={scrollToPortfolio}
                 className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all duration-200"
@@ -55,7 +64,6 @@ const Hero = () => {
               </button>
             </div>
           </div>
-          
           <div className="relative">
             <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 shadow-2xl">
               <div className="bg-white rounded-xl p-6 space-y-4">
@@ -72,7 +80,6 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            
             {/* Floating elements */}
             <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-500 rounded-full opacity-20 animate-pulse"></div>
             <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-purple-500 rounded-full opacity-10 animate-pulse delay-1000"></div>
