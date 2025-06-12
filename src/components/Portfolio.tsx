@@ -105,6 +105,10 @@ const Portfolio = () => {
       image: 'https://i.ibb.co/JjGXq8sh/image.png',
       images: [
         'https://i.ibb.co/JjHHZPd5/Ai-Youtube-Thambnail.png',
+        'https://i.ibb.co/LdMSRd3s/e67dda205922893-66c404eb91d53.jpg',
+        'https://i.ibb.co/4gdLFnbK/0f9f06205922893-66c404eb928c7.jpg',
+        'https://i.ibb.co/8nqHXb9v/8874d8205922893-66c404eb92232.jpg',
+        'https://i.ibb.co/5hdnGQcQ/e4a528205922893-66c404eb935c9.png',
         'https://i.ibb.co/LXqp25Z9/image.png',
         'https://i.ibb.co/rRMN9Ljw/image.png',
         'https://i.ibb.co/JwvFt3h5/hfhg.jpg',
