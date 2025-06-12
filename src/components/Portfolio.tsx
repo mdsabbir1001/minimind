@@ -104,6 +104,7 @@ const Portfolio = () => {
       category: 'Thumbnails',
       image: 'https://i.ibb.co/JjGXq8sh/image.png',
       images: [
+        'https://i.ibb.co/JjHHZPd5/Ai-Youtube-Thambnail.png',
         'https://i.ibb.co/LXqp25Z9/image.png',
         'https://i.ibb.co/rRMN9Ljw/image.png',
         'https://i.ibb.co/JwvFt3h5/hfhg.jpg',
