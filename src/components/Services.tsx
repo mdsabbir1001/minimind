@@ -108,7 +108,7 @@ const Services = () => {
 
 	// Google Apps Script Webhook URL (replace with your own)
 	const GOOGLE_SCRIPT_URL =
-		'https://script.google.com/macros/s/AKfycbwzIp-psAEXFo_Ho2_Ktso97Q9R3gd_d97Y15n70IsyBfar0k2xj4M-L-KFWOLBB5ekUQ/exec';
+		'https://script.google.com/macros/s/AKfycbzvANOqCvTd1R6aqrduHknnLgwaVtqFneNnABFrZa6ipgdLlcCZdxTajLKVRyHsnKCaOw/exec';
 
 	const handleOrderNow = (pkg: any) => {
 		setSelectedPackage(pkg);
@@ -122,27 +122,32 @@ const Services = () => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
 
-	const handleOrderSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setLoading(true);
-		setSuccess(false);
-		try {
-			await fetch(GOOGLE_SCRIPT_URL, {
-				method: 'POST',
-				body: JSON.stringify({
-					...form,
-					service: selectedService.title,
-					package: selectedPackage.name,
-				}),
-				headers: { 'Content-Type': 'application/json' },
-			});
-			setSuccess(true);
-			setForm({ name: '', email: '', phone: '', note: '' });
-		} catch {
-			alert('Order failed. Try again.');
-		}
-		setLoading(false);
-	};
+const handleOrderSubmit = async (e: React.FormEvent) => {
+	e.preventDefault();
+	setLoading(true);
+	setSuccess(false);
+	try {
+		const formData = new URLSearchParams();
+		formData.append('name', form.name);
+		formData.append('email', form.email);
+		formData.append('phone', form.phone);
+		formData.append('note', form.note);
+		formData.append('service', selectedService.title);
+		formData.append('package', selectedPackage.name);
+
+		await fetch(GOOGLE_SCRIPT_URL, {
+			method: 'POST',
+			body: formData,
+		});
+		
+		setSuccess(true);
+		setForm({ name: '', email: '', phone: '', note: '' });
+	} catch {
+		alert('Order failed. Try again.');
+	}
+	setLoading(false);
+};
+
 
 	return (
 		<section id="services" className="py-20 bg-gray-50">
