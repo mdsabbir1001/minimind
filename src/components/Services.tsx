@@ -35,6 +35,64 @@ const packageList = [
 	},
 ];
 
+const services = [
+	{
+		icon: Palette,
+		title: 'Brand Identity Design',
+		description:
+			'Complete brand identity packages including logos, color schemes, and brand guidelines.',
+		features: ['Logo Design', 'Brand Guidelines', 'Color Palette', 'Typography'],
+	},
+	{
+		icon: Layout,
+		title: 'Web & UI Design',
+		description:
+			'Modern, responsive web designs and user interfaces that engage and convert.',
+		features: ['Website Design', 'UI/UX Design', 'Mobile Apps', 'Wireframes'],
+	},
+	{
+		icon: PenTool,
+		title: 'Graphic Design',
+		description:
+			'Creative graphic design solutions for all your marketing and business needs.',
+		features: ['Brochures', 'Flyers', 'Posters', 'Business Cards'],
+	},
+	{
+		icon: Camera,
+		title: 'Marketing Materials',
+		description:
+			'Eye-catching marketing materials that help your business stand out from the competition.',
+		features: [
+			'Social Media Graphics',
+			'Banners',
+			'Advertisements',
+			'Presentations',
+		],
+	},
+	{
+		icon: Globe,
+		title: 'Digital Assets',
+		description:
+			'Digital design assets optimized for online platforms and digital marketing.',
+		features: ['Email Templates', 'Web Banners', 'Icons', 'Illustrations'],
+	},
+	{
+		icon: Megaphone,
+		title: 'Agency Support',
+		description:
+			'White-label design services for marketing and development agencies.',
+		features: [
+			'Project Collaboration',
+			'Quick Turnaround',
+			'Scalable Solutions',
+			'Quality Assurance',
+		],
+	},
+];
+
+const GOOGLE_SCRIPT_URL =
+	'https://script.google.com/macros/s/AKfycbwlHUS9SFVDjlutB7-fDZOEoKVE4kiLOOt6PFBkRsDAAm5rqjhIaIAoI0982PCkWMvwfg/exec';
+
 const Services = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [selectedService, setSelectedService] = useState<any>(null);
@@ -43,77 +101,18 @@ const Services = () => {
 	const [form, setForm] = useState({ name: '', email: '', phone: '', note: '' });
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
-	const [packageIndex, setPackageIndex] = useState(0); // <-- NEW
-
-	const services = [
-		{
-			icon: Palette,
-			title: 'Brand Identity Design',
-			description:
-				'Complete brand identity packages including logos, color schemes, and brand guidelines.',
-			features: ['Logo Design', 'Brand Guidelines', 'Color Palette', 'Typography'],
-		},
-		{
-			icon: Layout,
-			title: 'Web & UI Design',
-			description:
-				'Modern, responsive web designs and user interfaces that engage and convert.',
-			features: ['Website Design', 'UI/UX Design', 'Mobile Apps', 'Wireframes'],
-		},
-		{
-			icon: PenTool,
-			title: 'Graphic Design',
-			description:
-				'Creative graphic design solutions for all your marketing and business needs.',
-			features: ['Brochures', 'Flyers', 'Posters', 'Business Cards'],
-		},
-		{
-			icon: Camera,
-			title: 'Marketing Materials',
-			description:
-				'Eye-catching marketing materials that help your business stand out from the competition.',
-			features: [
-				'Social Media Graphics',
-				'Banners',
-				'Advertisements',
-				'Presentations',
-			],
-		},
-		{
-			icon: Globe,
-			title: 'Digital Assets',
-			description:
-				'Digital design assets optimized for online platforms and digital marketing.',
-			features: ['Email Templates', 'Web Banners', 'Icons', 'Illustrations'],
-		},
-		{
-			icon: Megaphone,
-			title: 'Agency Support',
-			description:
-				'White-label design services for marketing and development agencies.',
-			features: [
-				'Project Collaboration',
-				'Quick Turnaround',
-				'Scalable Solutions',
-				'Quality Assurance',
-			],
-		},
-	];
+	const [packageIndex, setPackageIndex] = useState(0);
 
 	const handleViewPackage = (service: any) => {
 		setSelectedService(service);
 		setModalOpen(true);
-		setPackageIndex(0); // Always start from first package
+		setPackageIndex(0);
 	};
-
-	// Google Apps Script Webhook URL (replace with your own)
-	const GOOGLE_SCRIPT_URL =
-		'https://script.google.com/macros/s/AKfycbzvANOqCvTd1R6aqrduHknnLgwaVtqFneNnABFrZa6ipgdLlcCZdxTajLKVRyHsnKCaOw/exec';
 
 	const handleOrderNow = (pkg: any) => {
 		setSelectedPackage(pkg);
-		setModalOpen(false); // Close package modal
-		setOrderModal(true); // Open order modal
+		setModalOpen(false);
+		setOrderModal(true);
 	};
 
 	const handleFormChange = (
@@ -122,32 +121,32 @@ const Services = () => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
 
-const handleOrderSubmit = async (e: React.FormEvent) => {
-	e.preventDefault();
-	setLoading(true);
-	setSuccess(false);
-	try {
-		const formData = new URLSearchParams();
-		formData.append('name', form.name);
-		formData.append('email', form.email);
-		formData.append('phone', form.phone);
-		formData.append('note', form.note);
-		formData.append('service', selectedService.title);
-		formData.append('package', selectedPackage.name);
-
-		await fetch(GOOGLE_SCRIPT_URL, {
-			method: 'POST',
-			body: formData,
-		});
-		
-		setSuccess(true);
-		setForm({ name: '', email: '', phone: '', note: '' });
-	} catch {
-		alert('Order failed. Try again.');
-	}
-	setLoading(false);
-};
-
+	const handleOrderSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setLoading(true);
+		setSuccess(false);
+		try {
+			const res = await fetch(GOOGLE_SCRIPT_URL, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					...form,
+					service: selectedService.title,
+					package: selectedPackage.name,
+				}),
+			});
+			const data = await res.json();
+			if (data.result === 'success') {
+				setSuccess(true);
+				setForm({ name: '', email: '', phone: '', note: '' });
+			} else {
+				alert('Order failed. Try again.');
+			}
+		} catch (err) {
+			alert('Order failed. Try again.');
+		}
+		setLoading(false);
+	};
 
 	return (
 		<section id="services" className="py-20 bg-gray-50">
@@ -230,7 +229,9 @@ const handleOrderSubmit = async (e: React.FormEvent) => {
 						{/* Service Icon and Title */}
 						<div className="flex flex-col items-center mb-2">
 							<selectedService.icon className="w-14 h-14 text-blue-600 mb-2" />
-							<h2 className="text-xl font-bold text-center mb-1">{selectedService.title}</h2>
+							<h2 className="text-xl font-bold text-center mb-1">
+								{selectedService.title}
+							</h2>
 							<div className="text-sm text-gray-500 mb-2">
 								Package {packageIndex + 1} of {packageList.length}
 							</div>
@@ -240,7 +241,7 @@ const handleOrderSubmit = async (e: React.FormEvent) => {
 							<button
 								className="bg-white shadow rounded-full p-2 mr-4 disabled:opacity-40"
 								style={{ display: 'flex', alignItems: 'center' }}
-								onClick={() => setPackageIndex(i => Math.max(i - 1, 0))}
+								onClick={() => setPackageIndex((i) => Math.max(i - 1, 0))}
 								aria-label="Scroll Left"
 								disabled={packageIndex === 0}
 							>
@@ -279,7 +280,11 @@ const handleOrderSubmit = async (e: React.FormEvent) => {
 							<button
 								className="bg-white shadow rounded-full p-2 ml-4 disabled:opacity-40"
 								style={{ display: 'flex', alignItems: 'center' }}
-								onClick={() => setPackageIndex(i => Math.min(i + 1, packageList.length - 1))}
+								onClick={() =>
+									setPackageIndex((i) =>
+										Math.min(i + 1, packageList.length - 1)
+									)
+								}
 								aria-label="Scroll Right"
 								disabled={packageIndex === packageList.length - 1}
 							>
