@@ -90,8 +90,7 @@ const services = [
 	},
 ];
 
-const GOOGLE_SCRIPT_URL =
-	'https://script.google.com/macros/s/AKfycbwlHUS9SFVDjlutB7-fDZOEoKVE4kiLOOt6PFBkRsDAAm5rqjhIaIAoI0982PCkWMvwfg/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwlHUS9SFVDjlutB7-fDZOEoKVE4kiLOOt6PFBkRsDAAm5rqjhIaIAoI0982PCkWMvwfg/exec';
 
 const Services = () => {
 	const [modalOpen, setModalOpen] = useState(false);
